@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Background Button</title>
+    <!-- Tailwind CSS CDN for basic styling and responsiveness -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter font for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Apply a gradient black-gray background to the body */
+        body {
+            background: linear-gradient(135deg, #aaaaaa 0%, #303030 100%); /* Dark gray to black gradient */
+            min-height: 100vh; /* Ensure it covers the full viewport height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif; /* Apply Inter font */
+            margin: 0;
+            padding: 20px; /* Add some padding for smaller screens */
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+
+        /* New button CSS as provided by the user */
+        .button {
+            --black: #000000;
+            --ch-black: #141414;
+            --eer-black: #1b1b1b;
+            --night-rider: #2e2e2e;
+            --white: #ffffff;
+            --af-white: #f3f3f3;
+            --ch-white: #e1e1e1;
+            border-radius: 8px;
+            width: 350px; /* Increased width even more */
+            height: 55px; /* Slightly increased height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 0px 20px; /* Increased horizontal padding */
+            border: none;
+            color: white;
+            position: relative;
+            cursor: pointer;
+            font-weight: 700;
+            transition-duration: .2s;
+            background-color: var(--ch-black);
+            font-size: 0.95rem; /* Slightly reduced font size again */
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+
+        .button:before, .button:after {
+            content: '';
+            position: absolute;
+            left: -2px;
+            top: -2px;
+            border-radius: 10px;
+            background: linear-gradient(45deg,
+            var(--ch-black), var(--eer-black),
+            var(--night-rider), var(--ch-white), var(--night-rider),
+            var(--eer-black), var(--ch-black),var(--ch-black));
+            background-size: 400%;
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            z-index: -1;
+            animation: steam 20s linear infinite;
+        }
+
+        @keyframes steam {
+            0% {
+                background-position: 0 0;
+            }
+
+            50% {
+                background-position: 400% 0;
+            }
+
+            100% {
+                background-position: 0 0;
+            }
+        }
+
+        .button:after {
+            filter: blur(50px);
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 640px) {
+            .button {
+                width: 90%; /* Use percentage width for better responsiveness */
+                max-width: 300px; /* Set a max-width to prevent it from getting too wide */
+                height: 50px;
+                font-size: 0.8rem; /* Further reduced font size for very small screens */
+                padding: 0px 10px; /* Adjusted padding for small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="button" id="myButton">
+        Do you wanna know what this button do?
+    </button>
+
+    <!-- Hidden audio element to play the moan.mp3 file -->
+    <!-- The 'preload="auto"' attribute tells the browser to load the audio as soon as possible. -->
+    <!-- The 'src' attribute points to your moan.mp3 file in the same directory. -->
+    <audio id="moanSound" src="moan.mp3" preload="auto"></audio>
+
+    <script>
+        // Get a reference to the button
+        const myButton = document.getElementById('myButton');
+        // Get a reference to the audio element
+        const moanSound = document.getElementById('moanSound');
+
+        // Add a click event listener to the button
+        myButton.addEventListener('click', () => {
+            // Play the sound
+            // It's good practice to reset the audio to the beginning before playing,
+            // in case it was played recently or paused.
+            moanSound.currentTime = 0; // Rewind to the start
+            moanSound.play().catch(error => {
+                // Catch and log any errors that might occur during playback,
+                // for example, if the browser blocks autoplay without user interaction.
+                console.error("Error playing sound:", error);
+            });
+        });
+    </script>
+</body>
+</html>
